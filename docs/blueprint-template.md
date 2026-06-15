@@ -20,10 +20,10 @@
 ## 3. Technical Evidence (Group)
 
 ### 3.1 Logging & Tracing
-- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: [logs.jsonl](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/data/logs.jsonl)
-- [EVIDENCE_PII_REDACTION_SCREENSHOT]: [logs.jsonl](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/data/logs.jsonl)
-- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: [logs.jsonl](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/data/logs.jsonl)
-- [TRACE_WATERFALL_EXPLANATION]: Every request successfully propagates a unique `correlation_id` of the form `req-<8-char-hex>`. The RAG retrieval span is followed by the LLM generation span. During failure incidents, the trace contains error details with a stack trace.
+- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: [correlation_id_screenshot.png](file:///Users/ngocvinh/.gemini/antigravity-ide/brain/9e35bea7-d078-40dd-99aa-c1745a14fa48/correlation_id_screenshot_1781508669595.png)
+- [EVIDENCE_PII_REDACTION_SCREENSHOT]: [pii_redaction_screenshot.png](file:///Users/ngocvinh/.gemini/antigravity-ide/brain/9e35bea7-d078-40dd-99aa-c1745a14fa48/pii_redaction_screenshot_1781508687213.png)
+- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: [langfuse_waterfall_screenshot.png](file:///Users/ngocvinh/.gemini/antigravity-ide/brain/9e35bea7-d078-40dd-99aa-c1745a14fa48/langfuse_waterfall_screenshot_1781508709316.png)
+- [TRACE_WATERFALL_EXPLANATION]: Every request successfully propagates a unique `correlation_id` of the form `req-<8-char-hex>`. In the trace waterfall, the root span is the API request (`chat` endpoint) which spawns a RAG context retrieval operation (`retrieve` span) taking 785ms, followed by the LLM response generation (`FakeLLM` span) which runs for 1.25s. The visual waterfall shows serial execution of components with precise start offsets and token statistics.
 
 ### 3.2 Dashboard & SLOs
 - [DASHBOARD_6_PANELS_SCREENSHOT]: [metrics](http://127.0.0.1:8000/metrics)
