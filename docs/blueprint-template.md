@@ -41,7 +41,7 @@
 ### 3.3 Alerts & Runbook
 - **[ALERT_RULES_SCREENSHOT]**:  
   ![alert_rules_screenshot.png](./images/alert_rules_screenshot.png)
-- **[SAMPLE_RUNBOOK_LINK]**: [alerts.md](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/docs/alerts.md#L16-L28)
+- **[SAMPLE_RUNBOOK_LINK]**: [alerts.md](https://github.com/vinhpn90/2A202600563-PhamNgocVinh-Day13/blob/main/docs/alerts.md#L16-L28)
 
 ---
 
@@ -58,7 +58,7 @@
 
 ### Phạm Ngọc Vinh
 - **[TASKS_COMPLETED]**: Completed all development tasks including middleware correlation ID generation, context binding, PII scrubbing config, validation testing, and incident investigation.
-- **[EVIDENCE_LINK]**: [middleware.py](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/app/middleware.py), [main.py](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/app/main.py), [logging_config.py](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/app/logging_config.py)
+- **[EVIDENCE_LINK]**: [middleware.py](https://github.com/vinhpn90/2A202600563-PhamNgocVinh-Day13/blob/main/app/middleware.py), [main.py](https://github.com/vinhpn90/2A202600563-PhamNgocVinh-Day13/blob/main/app/main.py), [logging_config.py](https://github.com/vinhpn90/2A202600563-PhamNgocVinh-Day13/blob/main/app/logging_config.py)
 
 ---
 
