@@ -20,17 +20,13 @@
 ## 3. Technical Evidence (Group)
 
 ### 3.1 Logging & Tracing
-- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: 
-  ![correlation_id_screenshot.png](./images/correlation_id_screenshot.png)
-- [EVIDENCE_PII_REDACTION_SCREENSHOT]: 
-  ![pii_redaction_screenshot.png](./images/pii_redaction_screenshot.png)
-- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: 
-  ![langfuse_waterfall_screenshot.png](./images/langfuse_waterfall_screenshot.png)
+- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: ![correlation_id_screenshot.png](./images/correlation_id_screenshot.png)
+- [EVIDENCE_PII_REDACTION_SCREENSHOT]: ![pii_redaction_screenshot.png](./images/pii_redaction_screenshot.png)
+- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: ![langfuse_waterfall_screenshot.png](./images/langfuse_waterfall_screenshot.png)
 - [TRACE_WATERFALL_EXPLANATION]: Every request successfully propagates a unique `correlation_id` of the form `req-<8-char-hex>`. In the trace waterfall, the root span is the API request (`chat` endpoint) which spawns a RAG context retrieval operation (`retrieve` span) taking 785ms, followed by the LLM response generation (`FakeLLM` span) which runs for 1.25s. The visual waterfall shows serial execution of components with precise start offsets and token statistics.
 
 ### 3.2 Dashboard & SLOs
-- [DASHBOARD_6_PANELS_SCREENSHOT]: 
-  ![dashboard_screenshot.png](./images/dashboard_screenshot.png)
+- [DASHBOARD_6_PANELS_SCREENSHOT]: ![dashboard_screenshot.png](./images/dashboard_screenshot.png)
 - [SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
@@ -39,8 +35,7 @@
 | Cost Budget | < $2.5/day | 1d | $0.022 |
 
 ### 3.3 Alerts & Runbook
-- [ALERT_RULES_SCREENSHOT]: 
-  ![alert_rules_screenshot.png](./images/alert_rules_screenshot.png)
+- [ALERT_RULES_SCREENSHOT]: ![alert_rules_screenshot.png](./images/alert_rules_screenshot.png)
 - [SAMPLE_RUNBOOK_LINK]: [alerts.md](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/docs/alerts.md#L16-L28)
 
 ---
