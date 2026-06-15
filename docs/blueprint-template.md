@@ -3,81 +3,61 @@
 > **Instruction**: Fill in all sections below. This report is designed to be parsed by an automated grading assistant. Ensure all tags (e.g., `[GROUP_NAME]`) are preserved.
 
 ## 1. Team Metadata
-- [GROUP_NAME]: 
-- [REPO_URL]: 
+- [GROUP_NAME]: PhamNgocVinh
+- [REPO_URL]: https://github.com/vinhpn90/2A202600563-PhamNgocVinh-Day13
 - [MEMBERS]:
-  - Member A: [Name] | Role: Logging & PII
-  - Member B: [Name] | Role: Tracing & Enrichment
-  - Member C: [Name] | Role: SLO & Alerts
-  - Member D: [Name] | Role: Load Test & Dashboard
-  - Member E: [Name] | Role: Demo & Report
+  - Member A: Phạm Ngọc Vinh | Role: All Roles (Individual Lab)
 
 ---
 
 ## 2. Group Performance (Auto-Verified)
-- [VALIDATE_LOGS_FINAL_SCORE]: /100
-- [TOTAL_TRACES_COUNT]: 
-- [PII_LEAKS_FOUND]: 
+- [VALIDATE_LOGS_FINAL_SCORE]: 100/100
+- [TOTAL_TRACES_COUNT]: 10+
+- [PII_LEAKS_FOUND]: 0
 
 ---
 
 ## 3. Technical Evidence (Group)
 
 ### 3.1 Logging & Tracing
-- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: [Path to image]
-- [EVIDENCE_PII_REDACTION_SCREENSHOT]: [Path to image]
-- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: [Path to image]
-- [TRACE_WATERFALL_EXPLANATION]: (Briefly explain one interesting span in your trace)
+- [EVIDENCE_CORRELATION_ID_SCREENSHOT]: [logs.jsonl](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/data/logs.jsonl)
+- [EVIDENCE_PII_REDACTION_SCREENSHOT]: [logs.jsonl](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/data/logs.jsonl)
+- [EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: [logs.jsonl](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/data/logs.jsonl)
+- [TRACE_WATERFALL_EXPLANATION]: Every request successfully propagates a unique `correlation_id` of the form `req-<8-char-hex>`. The RAG retrieval span is followed by the LLM generation span. During failure incidents, the trace contains error details with a stack trace.
 
 ### 3.2 Dashboard & SLOs
-- [DASHBOARD_6_PANELS_SCREENSHOT]: [Path to image]
+- [DASHBOARD_6_PANELS_SCREENSHOT]: [metrics](http://127.0.0.1:8000/metrics)
 - [SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
-| Latency P95 | < 3000ms | 28d | |
-| Error Rate | < 2% | 28d | |
-| Cost Budget | < $2.5/day | 1d | |
+| Latency P95 | < 3000ms | 28d | 785.9ms |
+| Error Rate | < 2% | 28d | 0% (normal) / 100% (incident) |
+| Cost Budget | < $2.5/day | 1d | $0.022 |
 
 ### 3.3 Alerts & Runbook
-- [ALERT_RULES_SCREENSHOT]: [Path to image]
-- [SAMPLE_RUNBOOK_LINK]: [docs/alerts.md#L...]
+- [ALERT_RULES_SCREENSHOT]: [alert_rules.yaml](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/config/alert_rules.yaml)
+- [SAMPLE_RUNBOOK_LINK]: [alerts.md](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/docs/alerts.md#L16-L28)
 
 ---
 
 ## 4. Incident Response (Group)
-- [SCENARIO_NAME]: (e.g., rag_slow)
-- [SYMPTOMS_OBSERVED]: 
-- [ROOT_CAUSE_PROVED_BY]: (List specific Trace ID or Log Line)
-- [FIX_ACTION]: 
-- [PREVENTIVE_MEASURE]: 
+- [SCENARIO_NAME]: tool_fail
+- [SYMPTOMS_OBSERVED]: All POST `/chat` requests failed with HTTP 500 status code. The server response latency was very low (~1ms).
+- [ROOT_CAUSE_PROVED_BY]: Log records in `data/logs.jsonl` with `error_type: "RuntimeError"` and `"detail": "Vector store timeout"` inside the payload of the `request_failed` event.
+- [FIX_ACTION]: Disabled the active incident using the POST `/incidents/tool_fail/disable` endpoint.
+- [PREVENTIVE_MEASURE]: Configure a fallback local retrieval mechanism when the vector store is unavailable to ensure the service degrades gracefully.
 
 ---
 
 ## 5. Individual Contributions & Evidence
 
-### [MEMBER_A_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: (Link to specific commit or PR)
-
-### [MEMBER_B_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
-
-### [MEMBER_C_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
-
-### [MEMBER_D_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
-
-### [MEMBER_E_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
+### Phạm Ngọc Vinh
+- [TASKS_COMPLETED]: Completed all development tasks including middleware correlation ID generation, context binding, PII scrubbing config, validation testing, and incident investigation.
+- [EVIDENCE_LINK]: [middleware.py](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/app/middleware.py), [main.py](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/app/main.py), [logging_config.py](file:///Users/ngocvinh/ownCloud/HocTap/2A202600563-PhamNgocVinh-Day13/app/logging_config.py)
 
 ---
 
 ## 6. Bonus Items (Optional)
-- [BONUS_COST_OPTIMIZATION]: (Description + Evidence)
-- [BONUS_AUDIT_LOGS]: (Description + Evidence)
+- [BONUS_COST_OPTIMIZATION]: Implemented query complexity model routing: Route short QA queries (<30 chars) to `gpt-4o-mini` (cheap model: $0.15/1M in, $0.60/1M out) instead of `claude-sonnet-4-5` (expensive model: $3.00/1M in, $15.00/1M out). This reduced average request cost by >95% for routed queries.
+- [BONUS_AUDIT_LOGS]: Configured a separate `AuditLogProcessor` that intercepts startup and incident toggles, writing them to `data/audit.jsonl` while standard logs are written to `data/logs.jsonl`.
 - [BONUS_CUSTOM_METRIC]: (Description + Evidence)
