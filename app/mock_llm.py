@@ -20,7 +20,7 @@ class FakeResponse:
     model: str
 
 
-from .tracing import observe
+from .tracing import langfuse_context, observe
 
 
 class FakeLLM:
@@ -34,6 +34,16 @@ class FakeLLM:
         output_tokens = random.randint(80, 180)
         if STATE["cost_spike"]:
             output_tokens *= 4
+            
+        langfuse_context.update_current_observation(
+            model=self.model,
+            usage={
+                "input": input_tokens,
+                "output": output_tokens,
+                "total": input_tokens + output_tokens
+            }
+        )
+        
         answer = (
             "Starter answer. Teams should improve this output logic and add better quality checks. "
             "Use retrieved context and keep responses concise."
