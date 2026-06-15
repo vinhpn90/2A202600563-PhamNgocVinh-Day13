@@ -35,12 +35,22 @@ class FakeLLM:
         if STATE["cost_spike"]:
             output_tokens *= 4
             
+        if self.model == "gpt-4o-mini":
+            input_cost = (input_tokens / 1_000_000) * 0.15
+            output_cost = (output_tokens / 1_000_000) * 0.60
+        else:
+            input_cost = (input_tokens / 1_000_000) * 3.0
+            output_cost = (output_tokens / 1_000_000) * 15.0
+            
         langfuse_context.update_current_observation(
             model=self.model,
             usage={
                 "input": input_tokens,
                 "output": output_tokens,
-                "total": input_tokens + output_tokens
+                "total": input_tokens + output_tokens,
+                "input_cost": input_cost,
+                "output_cost": output_cost,
+                "total_cost": input_cost + output_cost
             }
         )
         
