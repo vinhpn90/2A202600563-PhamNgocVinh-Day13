@@ -10,14 +10,14 @@
 
 ---
 
-## 2. Group Performance (Auto-Verified)
+## 2. Individual Performance (Auto-Verified)
 - **[VALIDATE_LOGS_FINAL_SCORE]**: 100/100
 - **[TOTAL_TRACES_COUNT]**: 10+
 - **[PII_LEAKS_FOUND]**: 0
 
 ---
 
-## 3. Technical Evidence (Group)
+## 3. Technical Evidence (Individual)
 
 ### 3.1 Logging & Tracing
 - **[EVIDENCE_CORRELATION_ID_SCREENSHOT]**:  
@@ -45,7 +45,7 @@
 
 ---
 
-## 4. Incident Response (Group)
+## 4. Incident Response (Individual)
 - **[SCENARIO_NAME]**: tool_fail
 - **[SYMPTOMS_OBSERVED]**: All POST `/chat` requests failed with HTTP 500 status code. The server response latency was very low (~1ms).
 - **[ROOT_CAUSE_PROVED_BY]**: Log records in `data/logs.jsonl` with `error_type: "RuntimeError"` and `"detail": "Vector store timeout"` inside the payload of the `request_failed` event.
